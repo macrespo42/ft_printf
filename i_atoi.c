@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c.c                                          :+:      :+:    :+:   */
+/*   i_atoi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/11 18:14:32 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 18:11:59 by macrespo         ###   ########.fr       */
+/*   Created: 2019/11/12 15:10:09 by macrespo          #+#    #+#             */
+/*   Updated: 2019/11/12 18:16:25 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		print_c(va_list arg, t_flags flags)
+int			i_atoi(const char *str, int pos, t_flags *flags)
 {
-	char	c;
-	char	zero;
+	int		res;
 	int		i;
 
-	zero = ' ';
-	if (flags.zero == 1)
-		zero = '0';
 	i = 0;
-	if (flags.width > 0)
+	res = 0;
+	while (str[pos] >= 48 && str[pos] <= 57)
 	{
-		while (i++ < (flags.width - 1))
-			write(1, &zero, 1);
+		res = res * 10 + str[pos] - '0';
+		pos++;
+		i++;
 	}
-	c = va_arg(arg, int);
-	write(1, &c, 1);
+	flags->width = res;
 	return (i);
 }

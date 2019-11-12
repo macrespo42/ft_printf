@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c.c                                          :+:      :+:    :+:   */
+/*   is_convert_flag.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/11 18:14:32 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 18:11:59 by macrespo         ###   ########.fr       */
+/*   Created: 2019/11/12 16:42:02 by macrespo          #+#    #+#             */
+/*   Updated: 2019/11/12 17:14:51 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		print_c(va_list arg, t_flags flags)
+int		is_convert_flag(char c)
 {
-	char	c;
-	char	zero;
-	int		i;
-
-	zero = ' ';
-	if (flags.zero == 1)
-		zero = '0';
-	i = 0;
-	if (flags.width > 0)
-	{
-		while (i++ < (flags.width - 1))
-			write(1, &zero, 1);
-	}
-	c = va_arg(arg, int);
-	write(1, &c, 1);
-	return (i);
+	if (c == 'c')
+		return (1);
+	return (0);
 }
