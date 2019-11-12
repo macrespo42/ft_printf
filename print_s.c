@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   print_s.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/11 09:42:39 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 11:02:48 by macrespo         ###   ########.fr       */
+/*   Created: 2019/11/12 10:22:46 by macrespo          #+#    #+#             */
+/*   Updated: 2019/11/12 11:02:41 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
-# include <stdio.h>
-# define BUFF_SIZE 4096
+#include "ft_printf.h"
 
-typedef struct		s_flags
+int		print_s(va_list arg)
 {
-	int				dash;
-	int				width;
-	int				precision;
-	int				star;
-}					t_flags;
+	char	*s;
+	int		i;
 
-int					ft_printf(const char *s, ...);
-int					print_c(va_list arg);
-int					print_s(va_list arg);
-#endif
+	s = va_arg(arg, char*);
+	i = 0;
+	while (s[i])
+		i++;
+	write(1, s, i);
+	return (i);
+}
