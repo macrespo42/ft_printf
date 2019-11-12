@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 18:16:45 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:56:34 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static t_flags	active_flags(char *s, int pos)
 		if (s[pos] == '0')
 			flags.zero = 1;
 		else if (ft_isdigit(s[pos]))
-			pos += i_atoi(s, pos, &flags);
-		// else if (s[pos] == '-')
-		// 	flags.dash = i_atoi(s, &pos);
+			pos += i_atoi(s, pos, &flags, 1);
+		else if (s[pos] == '-')
+			pos += i_atoi(s, pos, &flags, 2);
 		// else if (s[pos] == '.')
 		// {
 		// 	flags.dot = 1;
-		// 	flags.precision = i_atoi(s, &pos);
+		// 	flags.precision = i_atoi(s, pos, &flags, 3);
 		// }
 		pos++;
 	}

@@ -6,13 +6,13 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:10:09 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 18:16:25 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:57:08 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			i_atoi(const char *str, int pos, t_flags *flags)
+int			i_atoi(const char *str, int pos, t_flags *flags, int flag)
 {
 	int		res;
 	int		i;
@@ -25,6 +25,11 @@ int			i_atoi(const char *str, int pos, t_flags *flags)
 		pos++;
 		i++;
 	}
-	flags->width = res;
+	if (flag == 1)
+		flags->width = res;
+	else if (flag == 2)
+		flags->dash = res;
+	else
+		flags->precision = res;
 	return (i);
 }
