@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 18:14:32 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/13 09:52:23 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 11:55:50 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static int		width_flags(t_flags flags, char c)
 	int		i;
 
 	i = 0;
-	if (flags.dash > 0)
-		flags.width = flags.dash;
 	while (i++ < (flags.width - 1))
 		write(1, &c, 1);
 	return (i - 1);

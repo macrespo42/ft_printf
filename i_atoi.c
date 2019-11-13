@@ -6,30 +6,30 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:10:09 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 18:57:08 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:05:07 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			i_atoi(const char *str, int pos, t_flags *flags, int flag)
+int			i_atoi(const char *str, int pos, va_list args, t_flags *flags)
 {
 	int		res;
-	int		i;
 
-	i = 0;
 	res = 0;
+	if (str[pos] == '*')
+	{
+		res = va_arg(args, int);
+		if (res < 0)
+		{
+			res = res * - 1;
+			flags->dash = 1;
+		}
+	}
 	while (str[pos] >= 48 && str[pos] <= 57)
 	{
 		res = res * 10 + str[pos] - '0';
 		pos++;
-		i++;
 	}
-	if (flag == 1)
-		flags->width = res;
-	else if (flag == 2)
-		flags->dash = res;
-	else
-		flags->precision = res;
-	return (i);
+	return (res);
 }

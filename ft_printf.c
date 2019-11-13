@@ -6,13 +6,13 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 19:11:48 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:04:30 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_flags	active_flags(char *s, int pos)
+static t_flags	active_flags(char *s, int pos, va_list args)
 {
 	t_flags flags;
 
@@ -24,15 +24,17 @@ static t_flags	active_flags(char *s, int pos)
 	{
 		if (s[pos] == '0')
 			flags.zero = 1;
-		else if (ft_isdigit(s[pos]))
-			pos += i_atoi(s, pos, &flags, 1);
+		else if (ft_isdigit(s[pos]) || s[pos] == '*')
+			flags.width = i_atoi(s, pos, args, &flags);
 		else if (s[pos] == '-')
-			pos += i_atoi(s, pos + 1, &flags, 2);
+			flags.dash = 1;
 		else if (s[pos] == '.')
 		{
 			flags.dot = 1;
-			flags.precision = i_atoi(s, pos, &flags, 3);
+			flags.precision = i_atoi(s, pos + 1, args, &flags);
 		}
+		while (ft_isdigit(s[pos + 1]))
+			pos++;
 		pos++;
 	}
 	return (flags);
@@ -40,13 +42,12 @@ static t_flags	active_flags(char *s, int pos)
 
 static int		convert_flags(int *i, va_list args, char *s)
 {
-	/* *i += 1; is in wait to support flags */
 	int		printed;
 	t_flags flags;
 
 	printed = 0;
 	*i += 1;
-	flags = active_flags(s, *i);
+	flags = active_flags(s, *i, args);
 	while (!(is_convert_flag(s[*i])))
 		*i += 1;
 	if (s[*i] == 'c')
