@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/13 12:04:30 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:27:17 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_flags	active_flags(char *s, int pos, va_list args)
 	flags.dot = 0;
 	flags.width = 0;
 	flags.dash = 0;
-	while (s[pos] && (s[pos] != 'c'))
+	while (s[pos] && !(is_convert_flag(s[pos])))
 	{
 		if (s[pos] == '0')
 			flags.zero = 1;
@@ -33,7 +33,7 @@ static t_flags	active_flags(char *s, int pos, va_list args)
 			flags.dot = 1;
 			flags.precision = i_atoi(s, pos + 1, args, &flags);
 		}
-		while (ft_isdigit(s[pos + 1]))
+		while (ft_isdigit(s[pos + 1]) && s[pos] != '0')
 			pos++;
 		pos++;
 	}
@@ -42,8 +42,8 @@ static t_flags	active_flags(char *s, int pos, va_list args)
 
 static int		convert_flags(int *i, va_list args, char *s)
 {
-	int		printed;
-	t_flags flags;
+	int			printed;
+	t_flags		flags;
 
 	printed = 0;
 	*i += 1;
@@ -53,11 +53,10 @@ static int		convert_flags(int *i, va_list args, char *s)
 	if (s[*i] == 'c')
 		printed += print_c(args, flags);
 	if (s[*i] == 's')
-		printed += print_s(args);
+		printed += print_s(args, flags);
 	*i += 1;
 	return (printed);
 }
-
 
 int				ft_printf(const char *s, ...)
 {

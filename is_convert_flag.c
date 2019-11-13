@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 16:42:02 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 17:14:51 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 14:10:32 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		is_convert_flag(char c)
 {
-	if (c == 'c')
+	if (c == 'c' || c == 's')
 		return (1);
 	return (0);
 }
