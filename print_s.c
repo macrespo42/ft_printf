@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 10:22:46 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/13 16:02:32 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:36:07 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		print_width(t_flags flags, int size)
 
 	printed = 0;
 	zero = ' ';
-	if (flags.zero == 1)
+	if (flags.zero == 1 && flags.dash == 0)
 		zero = '0';
 	while (size++ < flags.width)
 	{
@@ -67,7 +67,7 @@ int				print_s(va_list arg, t_flags flags)
 	if (flags.width > 0 && flags.dash == 0)
 		printed += print_width(flags, size_s);
 	i += print_precision(flags, s);
-	if (flags.width > 0 && flags.dash == 1)
+	if (flags.dash == 1)
 		printed += print_width(flags, size_s);
 	return (i + printed);
 }
