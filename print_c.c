@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 18:14:32 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/12 19:14:26 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/13 09:52:23 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				print_c(va_list arg, t_flags flags)
 	int		i;
 
 	zero = ' ';
-	if (flags.zero == 1)
+	if (flags.zero == 1 && flags.dash == 0)
 		zero = '0';
 	i = 0;
 	if (flags.width > 0 && flags.dash == 0)
