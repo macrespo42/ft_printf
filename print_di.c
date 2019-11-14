@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:37:56 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/13 19:06:23 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:39:34 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ int				print_di(va_list arg, t_flags flags)
 	printed = 0;
 	nb = va_arg(arg, int);
 	len = len_num(nb);
+	if (flags.dot == 1)
+	{
+		while (len < flags.precision)
+		{
+			write(1, "0", 1);
+			printed++;
+			len++;
+		}
+	}
 	if (flags.width > 0 && flags.dash == 0)
 		printed += print_width(flags, len);
 	ft_putnbr_fd(nb, 1);
