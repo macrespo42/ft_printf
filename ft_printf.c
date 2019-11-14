@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/13 18:37:45 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:00:30 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int		convert_flags(int *i, va_list args, char *s)
 		printed += print_s(args, flags);
 	if (s[*i] == 'd' || s[*i] == 'i')
 		printed += print_di(args, flags);
+	if (s[*i] == 'u')
+		printed += print_u(args, flags);
 	*i += 1;
 	return (printed);
 }
