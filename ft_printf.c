@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/14 18:00:06 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/15 11:18:13 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int		convert_flags(int *i, va_list args, char *s)
 		printed += print_hexa(args, flags, 0);
 	if (s[*i] == 'X')
 		printed += print_hexa(args, flags, 1);
+	if (s[*i] == 'p')
+		printed += print_memory(args, flags);
 	*i += 1;
 	return (printed);
 }
