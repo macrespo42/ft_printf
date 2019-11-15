@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 10:22:46 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 14:36:39 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:52:39 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,9 @@ static int		print_width(t_flags flags, int size)
 
 static int		print_precision(t_flags flags, char *s)
 {
-	int i;
+	int		i;
 
 	i = 0;
-	if (!s)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
 	if (flags.dot == 1 && (int)ft_strlen(s) > flags.precision)
 	{
 		while (i < flags.precision)
@@ -46,8 +41,11 @@ static int		print_precision(t_flags flags, char *s)
 	}
 	else
 	{
-		while (s[i])
+		if (s)
+		{
+			while (s[i])
 			i++;
+		}
 	}
 	write(1, s, i);
 	return (i);
@@ -63,10 +61,9 @@ int				print_s(va_list arg, t_flags flags)
 	printed = 0;
 	i = 0;
 	s = va_arg(arg, char*);
-	if (s)
-		size_s = (int)ft_strlen(s);
-	else
-		size_s = 6;
+	if (s == NULL)
+		s = "(null)";
+	size_s = (int)ft_strlen(s);
 	if (flags.dot == 1 && size_s > flags.precision)
 	{
 		if (flags.precision < size_s)
