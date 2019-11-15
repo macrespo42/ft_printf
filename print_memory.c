@@ -6,22 +6,48 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:19:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 11:55:04 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:06:02 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int				print_hexa_lower(unsigned long n)
+static int				count_hexa(unsigned long n)
 {
 	char			*hexa_base;
 	static int		printed = 0;
 
 	hexa_base = "0123456789abcdef";
 	if (n >= 10)
-		print_hexa_lower(n / 16);
+		count_hexa(n / 16);
 	printed += 1;
+	return (printed);
+}
+
+static void				print_hexa_lower(unsigned long n)
+{
+	char			*hexa_base;
+
+	hexa_base = "0123456789abcdef";
+	if (n >= 10)
+		print_hexa_lower(n / 16);
 	write(1, &hexa_base[n % 16], 1);
+}
+
+static int		print_width(t_flags flags, int size)
+{
+	char	zero;
+	int		printed;
+
+	zero = ' ';
+	printed = 0;
+	if (flags.zero == 1 && flags.dash == 0)
+		zero = '0';
+	while (size++ < flags.width)
+	{
+		write(1, &zero, 1);
+		printed++;
+	}
 	return (printed);
 }
 
@@ -32,9 +58,13 @@ int						print_memory(va_list arg, t_flags flags)
 	int				printed;
 
 	printed = 0;
-	len = 2;
-	write(1, "0x", 2);
 	nb = va_arg(arg, unsigned long);
-	printed += print_hexa_lower(nb);
+	len = count_hexa(nb) + 2;
+	if (flags.width > 0 && flags.dash == 0)
+		printed += print_width(flags, len);
+	write(1, "0x", 2);
+	print_hexa_lower(nb);
+	if (flags.width > 0 && flags.dash == 1)
+		printed += print_width(flags, len);
 	return (len + printed);
 }

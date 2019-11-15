@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 11:18:13 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/15 13:37:30 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int		convert_flags(int *i, va_list args, char *s)
 	printed = 0;
 	*i += 1;
 	flags = active_flags(s, *i, args);
-	while (!(is_convert_flag(s[*i])))
+	while (!(is_convert_flag(s[*i])) && s[*i])
 		*i += 1;
 	if (s[*i] == 'c')
 		printed += print_c(args, flags);
@@ -65,7 +65,8 @@ static int		convert_flags(int *i, va_list args, char *s)
 		printed += print_hexa(args, flags, 1);
 	if (s[*i] == 'p')
 		printed += print_memory(args, flags);
-	*i += 1;
+	if (s[*i])
+		*i += 1;
 	return (printed);
 }
 
@@ -80,7 +81,7 @@ int				ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (s[i])
 	{
-		if (s[i] == '%')
+		if (s[i] == '%' && s[i + 1] != '%')
 			printed += convert_flags(&i, args, (char*)s);
 		else
 		{

@@ -3,3 +3,4 @@ main.c
 *.o
 a.out
 *.pdf
+printf_tester
