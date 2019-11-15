@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 16:42:02 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/14 15:59:27 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:37:17 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int		is_convert_flag(char c)
 {
 	if (c == 'c' || c == 's' || c == 'd' || c == 'i' || c == 'u')
+		return (1);
+	if (c == 'x' || c == 'X' || c == 'p')
 		return (1);
 	return (0);
 }
