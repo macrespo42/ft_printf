@@ -6,13 +6,13 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 17:42:45 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 10:43:29 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/15 11:54:51 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int					print_hexa_lower(unsigned long n)
+static int				print_hexa_lower(unsigned long n)
 {
 	char			*hexa_base;
 	static int		printed = 0;
