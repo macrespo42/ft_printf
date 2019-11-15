@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:19:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 14:06:02 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/15 15:29:54 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,11 @@ static void				print_hexa_lower(unsigned long n)
 	write(1, &hexa_base[n % 16], 1);
 }
 
-static int		print_width(t_flags flags, int size)
+static int				print_width(t_flags flags, int size, char zero)
 {
-	char	zero;
 	int		printed;
 
-	zero = ' ';
 	printed = 0;
-	if (flags.zero == 1 && flags.dash == 0)
-		zero = '0';
 	while (size++ < flags.width)
 	{
 		write(1, &zero, 1);
@@ -60,11 +56,16 @@ int						print_memory(va_list arg, t_flags flags)
 	printed = 0;
 	nb = va_arg(arg, unsigned long);
 	len = count_hexa(nb) + 2;
-	if (flags.width > 0 && flags.dash == 0)
-		printed += print_width(flags, len);
+	if (flags.width > 0 && flags.dash == 0 && flags.zero == 0)
+		printed += print_width(flags, len, ' ');
 	write(1, "0x", 2);
-	print_hexa_lower(nb);
+	if (flags.width > 0 && flags.dash == 0 && flags.zero == 1)
+		printed += print_width(flags, len, '0');
+	if (flags.dot == 1 && nb == 0)
+		len--;
+	else
+		print_hexa_lower(nb);
 	if (flags.width > 0 && flags.dash == 1)
-		printed += print_width(flags, len);
+		printed += print_width(flags, len, ' ');
 	return (len + printed);
 }
