@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:37:56 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/18 16:05:32 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:26:37 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int				print_di(va_list arg, t_flags flags)
 	printed = len;
 	if ((flags.width > 0 && flags.dash == 0) || flags.dot == 1)
 		printed += print_flags(flags, len);
-	write(1, "-", 1);
 	putnbr(nb);
 	if (flags.width > 0 && flags.dash == 1)
 		printed += print_flags(flags, printed);
