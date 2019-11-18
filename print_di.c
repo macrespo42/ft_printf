@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:37:56 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/18 15:57:50 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:05:32 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int		print_width(t_flags flags, int size)
 	return (printed);
 }
 
-static int		print_flags(t_flags flags, int size, int truc)
+static int		print_flags(t_flags flags, int size)
 {
 	int		printed;
 	int		to_print;
@@ -81,7 +81,7 @@ static int		print_flags(t_flags flags, int size, int truc)
 		write(1, "0", 1);
 		printed++;
 	}
-	if (truc)
+	if (flags.dash == 1)
 		printed += print_width(flags, size);
 	return (printed);
 }
@@ -96,11 +96,11 @@ int				print_di(va_list arg, t_flags flags)
 	len = len_num(nb);
 	printed = len;
 	if ((flags.width > 0 && flags.dash == 0) || flags.dot == 1)
-		printed += print_flags(flags, len, 0);
+		printed += print_flags(flags, len);
 	write(1, "-", 1);
 	putnbr(nb);
 	if (flags.width > 0 && flags.dash == 1)
-		printed += print_flags(flags, printed, 1);
+		printed += print_flags(flags, printed);
 	if (flags.width > 0 || flags.dot == 1)
 		return (printed);
 	return (len);
