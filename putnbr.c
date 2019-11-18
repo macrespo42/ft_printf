@@ -6,24 +6,22 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 18:34:50 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 18:37:08 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:52:33 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void				putnbr(int n)
+void				putnbr(long n)
 {
-	long	nb;
 	char	tmp;
 
-	nb = (long)n;
-	if (nb < 0)
+	if (n < 0)
 	{
-		nb = nb * -1;
+		n = n * -1;
 	}
-	if (nb >= 10)
-		putnbr(nb / 10);
+	if (n >= 10)
+		putnbr(n / 10);
 	tmp = '0' + n % 10;
 	write(1, &tmp, 1);
 }

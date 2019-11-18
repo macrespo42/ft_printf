@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:37:56 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/15 18:39:39 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:57:50 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int		len_num(int n)
 	return (len);
 }
 
-static int		print_precision(t_flags flags, int size)
+static int		precision_size(t_flags flags, int size)
 {
 	int		to_print;
 
@@ -49,7 +49,7 @@ static int		print_precision(t_flags flags, int size)
 	return (to_print);
 }
 
-static int		ggez(t_flags flags, int size)
+static int		print_width(t_flags flags, int size)
 {
 	char	zero;
 	int		printed;
@@ -66,27 +66,23 @@ static int		ggez(t_flags flags, int size)
 	return (printed);
 }
 
-static int		print_width(t_flags flags, int size, int truc)
+static int		print_flags(t_flags flags, int size, int truc)
 {
 	int		printed;
 	int		to_print;
 
 	printed = 0;
-	to_print = 0;
-	if (flags.dot == 1)
-	{
-		to_print = print_precision(flags, size);
-		size += to_print;
-	}
+	to_print = precision_size(flags, size);
+	size += to_print;
 	if (flags.dash == 0)
-		printed += ggez(flags, size);
+		printed += print_width(flags, size);
 	while (to_print-- > 0)
 	{
 		write(1, "0", 1);
 		printed++;
 	}
 	if (truc)
-		printed += ggez(flags, size);
+		printed += print_width(flags, size);
 	return (printed);
 }
 
@@ -100,10 +96,11 @@ int				print_di(va_list arg, t_flags flags)
 	len = len_num(nb);
 	printed = len;
 	if ((flags.width > 0 && flags.dash == 0) || flags.dot == 1)
-		printed += print_width(flags, len, 0);
+		printed += print_flags(flags, len, 0);
+	write(1, "-", 1);
 	putnbr(nb);
 	if (flags.width > 0 && flags.dash == 1)
-		printed += print_width(flags, printed, 1);
+		printed += print_flags(flags, printed, 1);
 	if (flags.width > 0 || flags.dot == 1)
 		return (printed);
 	return (len);
