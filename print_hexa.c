@@ -14,14 +14,15 @@
 
 static int				count_hexa(unsigned int n)
 {
-	char			*hexa_base;
-	static int		printed = 0;
+	int		count;
 
-	hexa_base = "0123456789abcdef";
-	if (n >= 16)
-		count_hexa(n / 16);
-	printed += 1;
-	return (printed);
+	count = 1;
+	while (n >= 16)
+	{
+		n = n / 16;
+		count  += 1;
+	}
+	return (count);
 }
 
 static int				print_precision(t_flags flags, unsigned long nb)

@@ -14,10 +14,8 @@
 
 static int				count_hexa(unsigned long n)
 {
-	char			*hexa_base;
-	int				printed;
+	int	printed;
 
-	hexa_base = "0123456789abcdef";
 	printed = 1;
 	while (n >= 16)
 	{
