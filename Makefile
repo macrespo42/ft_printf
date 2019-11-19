@@ -18,6 +18,7 @@ SRC = ft_printf.c \
 	print_hexa_lower.c \
 	print_hexa_upper.c \
 	print_hexa.c \
+	print_hexaX.c \
 	putunbr.c \
 	putnbr.c \
 	print_memory.c \
