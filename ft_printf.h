@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 09:42:39 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 17:05:01 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:52:30 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int					print_hexaX(va_list arg, t_flags flags);
 int					print_memory(va_list arg, t_flags flags);
 void				print_hexa_lower(unsigned int n);
 void				print_hexa_upper(unsigned int n);
+void				print_address(unsigned long n);
 void				putnbr(long n);
 void				putunbr(unsigned int n);
 #endif
