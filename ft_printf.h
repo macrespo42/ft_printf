@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 09:42:39 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 11:46:56 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:59:55 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct		s_flags
 }					t_flags;
 
 int					ft_printf(const char *s, ...);
-int					i_atoi(const char *str, int pos, va_list args,
+int					i_atoi(const char *str, int *pos, va_list args,
 	t_flags *flags);
 int					is_convert_flag(char c);
 int					print_c(va_list arg, t_flags flags);
