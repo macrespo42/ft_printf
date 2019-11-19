@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:01:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 15:13:07 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 16:31:45 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ static int				print_width(t_flags flags, int nb)
 		width_char = '0';
 	len = len_num(nb);
 	to_print = flags.width - len;
-	printed = len < flags.width ? flags.width + len : len;
+	printed = to_print + len;
 	if (flags.dash == 1)
 		putunbr(nb);
 	while (to_print-- > 0)
 		write(1, &width_char, 1);
 	if (flags.dash == 0)
 		putunbr(nb);
+	if (flags.width < len)
+		return (len);
 	return (printed);
 }
 
