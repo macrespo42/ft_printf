@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:10:09 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/18 17:35:40 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 10:31:39 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int			i_atoi(const char *str, int pos, va_list args, t_flags *flags)
 	if (str[pos] == '*')
 	{
 		res = va_arg(args, int);
-		if (res < 0)
+		if (res < 0 && str[pos - 1] == '.')
+			flags->dot = 0;
+		else if (res < 0)
 		{
 			res = res * -1;
 			flags->dash = 1;
