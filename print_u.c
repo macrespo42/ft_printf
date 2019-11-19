@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:01:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 13:41:25 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:13:07 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ static int				print_precision(t_flags flags, int nb)
 
 	len = len_num(nb);
 	to_print = flags.precision - len;
-	printed = len < flags.precision ? flags.precision + len : len;
+	printed = len < flags.precision ? flags.precision + len - 1: len;
+	if (flags.precision == 0 && nb == 0)
+		return (0);
 	while (to_print-- > 0)
 		write(1, "0", 1);
 	putunbr(nb);
@@ -71,6 +73,8 @@ static int				print_prewidth(t_flags flags, int nb, int len)
 	pre = flags.precision - len > 0 ? flags.precision - len : 0;
 	wid = flags.width - (len + pre) > 0 ? flags.width - (len + pre) : 0;
 	printed = pre + wid + len;
+	if (flags.precision == 0 && nb == 0)
+		wid += 1;
 	if (flags.dash == 0)
 	{
 		while (wid-- > 0)
@@ -78,7 +82,8 @@ static int				print_prewidth(t_flags flags, int nb, int len)
 	}
 	while (pre-- > 0)
 		write(1, "0", 1);
-	putunbr(nb);
+	if (!(flags.precision == 0 && nb == 0))
+		putunbr(nb);
 	if (flags.dash == 1)
 	{
 		while (wid-- > 0)
