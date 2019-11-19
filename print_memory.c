@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:19:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 11:34:20 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:59:37 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int						print_memory(va_list arg, t_flags flags)
 	int				len;
 	int				printed;
 
+	(void)flags;
 	printed = 0;
 	nb = va_arg(arg, unsigned long);
 	len = count_hexa(nb) + 2;
