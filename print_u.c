@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:01:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/18 17:27:50 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:41:25 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,79 +25,85 @@ static unsigned int		len_num(unsigned int n)
 	return (len);
 }
 
-static int		precision_size(t_flags flags, int size)
+static int				print_precision(t_flags flags, int nb)
 {
+	int		len;
+	int		printed;
 	int		to_print;
 
-	to_print = 0;
-	if (flags.dot == 1)
-	{
-		while (size < flags.precision)
-		{
-			size++;
-			to_print++;
-		}
-	}
-	return (to_print);
-}
-
-static int		print_width(t_flags flags, int size)
-{
-	char	zero;
-	int		printed;
-
-	zero = ' ';
-	printed = 0;
-
-	if (flags.zero == 1 && flags.dash == 0)
-		zero = '0';
-	if (flags.dot && flags.precision < flags.width)
-		zero = ' ';
-	while (size++ < flags.width)
-	{
-		write(1, &zero, 1);
-		printed++;
-	}
+	len = len_num(nb);
+	to_print = flags.precision - len;
+	printed = len < flags.precision ? flags.precision + len : len;
+	while (to_print-- > 0)
+		write(1, "0", 1);
+	putunbr(nb);
 	return (printed);
 }
 
-static int		print_flags(t_flags flags, int size)
+static int				print_width(t_flags flags, int nb)
 {
+	int		len;
 	int		printed;
 	int		to_print;
+	char	width_char;
 
-	printed = 0;
-	to_print = precision_size(flags, size);
-	size += to_print;
-	if (flags.dash == 0)
-		printed += print_width(flags, size);
-	while (to_print-- > 0)
-	{
-		write(1, "0", 1);
-		printed++;
-	}
+	width_char = ' ';
+	if (flags.zero == 1 && flags.dash == 0)
+		width_char = '0';
+	len = len_num(nb);
+	to_print = flags.width - len;
+	printed = len < flags.width ? flags.width + len : len;
 	if (flags.dash == 1)
-		printed += print_width(flags, size);
+		putunbr(nb);
+	while (to_print-- > 0)
+		write(1, &width_char, 1);
+	if (flags.dash == 0)
+		putunbr(nb);
+	return (printed);
+}
+
+static int				print_prewidth(t_flags flags, int nb, int len)
+{
+	int		printed;
+	int		pre;
+	int		wid;
+
+	pre = flags.precision - len > 0 ? flags.precision - len : 0;
+	wid = flags.width - (len + pre) > 0 ? flags.width - (len + pre) : 0;
+	printed = pre + wid + len;
+	if (flags.dash == 0)
+	{
+		while (wid-- > 0)
+			write(1, " ", 1);
+	}
+	while (pre-- > 0)
+		write(1, "0", 1);
+	putunbr(nb);
+	if (flags.dash == 1)
+	{
+		while (wid-- > 0)
+			write(1, " ", 1);
+	}
 	return (printed);
 }
 
 int						print_u(va_list arg, t_flags flags)
 {
-	int		len;
 	int		nb;
 	int		printed;
 
+	printed = 0;
 	nb = va_arg(arg, int);
-	len = len_num(nb);
-	printed = len;
-	if (flags.dot == 0)
-		flags.precision = 0;
-	if ((flags.width > 0 && flags.dash == 0) || flags.dot == 1)
-		printed += print_flags(flags, len);
-	putnbr(nb);
-	if (flags.width > 0 && flags.dash == 1)
-		printed += print_flags(flags, printed);
-	if (flags.width > 0 || flags.dot == 1)
-		return (printed);
-	return (len);
+	if (flags.width > 0 && flags.dot == 0)
+		printed += print_width(flags, nb);
+	else if (flags.width == 0 && flags.dot == 1)
+		printed += print_precision(flags, nb);
+	else if (flags.width > 0 && flags.dot == 1)
+		printed += print_prewidth(flags, nb, len_num(nb));
+	else
+	{
+		putunbr(nb);
+		return (len_num(nb));
+	}
+	return (printed);
 }
