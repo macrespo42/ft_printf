@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/20 10:56:29 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:27:58 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,31 @@ static t_flags	active_flags(char *s, int pos, va_list args)
 
 static int		convert_flags(int *i, va_list args, char *s)
 {
-	int			printed;
+	int			print;
 	t_flags		flags;
 
-	printed = 0;
+	print = 0;
 	*i += 1;
 	flags = active_flags(s, *i, args);
 	while (!(is_convert_flag(s[*i])) && s[*i])
 		*i += 1;
 	if (s[*i] == '%')
-		printed += print_percent(flags);
+		print += print_percent(flags);
 	if (s[*i] == 'c')
-		printed += print_c(args, flags);
+		print += print_c(args, flags);
 	if (s[*i] == 's')
-		printed += print_s(args, flags);
+		print += print_s(args, flags);
 	if (s[*i] == 'd' || s[*i] == 'i')
-		printed += print_di(args, flags);
+		print += print_di(args, flags);
 	if (s[*i] == 'u')
-		printed += print_u(args, flags);
-	if (s[*i] == 'x')
-		printed += print_hexa(args, flags);
-	if (s[*i] == 'X')
-		printed += print_hexaX(args ,flags);
+		print += print_u(args, flags);
+	if (s[*i] == 'x' || s[*i] == 'X')
+		print += s[*i] == 'x' ? p_hex(args, flags) : p_uhex(args, flags);
 	if (s[*i] == 'p')
-		printed += print_memory(args, flags);
+		print += print_memory(args, flags);
 	if (s[*i])
 		*i += 1;
-	return (printed);
+	return (print);
 }
 
 int				ft_printf(const char *s, ...)

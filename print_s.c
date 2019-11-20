@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 10:22:46 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/18 18:09:48 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:07:08 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int		print_precision(t_flags flags, char *s)
 		if (s)
 		{
 			while (s[i])
-			i++;
+				i++;
 		}
 	}
 	write(1, s, i);

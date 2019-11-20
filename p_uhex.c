@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_hexa.c                                       :+:      :+:    :+:   */
+/*   p_uhex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 17:42:45 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 16:55:58 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:25:41 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int				count_hexa(unsigned int n)
 	while (n >= 16)
 	{
 		n = n / 16;
-		count  += 1;
+		count += 1;
 	}
 	return (count);
 }
@@ -38,7 +38,7 @@ static int				print_precision(t_flags flags, unsigned long nb)
 		return (0);
 	while (to_print-- > 0)
 		write(1, "0", 1);
-	print_hexa_lower(nb);
+	print_hexa_upper(nb);
 	return (printed);
 }
 
@@ -56,11 +56,11 @@ static int				print_width(t_flags flags, unsigned long nb)
 	to_print = flags.width - len;
 	printed = to_print + len;
 	if (flags.dash == 1)
-		print_hexa_lower(nb);
+		print_hexa_upper(nb);
 	while (to_print-- > 0)
 		write(1, &width_char, 1);
 	if (flags.dash == 0)
-		print_hexa_lower(nb);
+		print_hexa_upper(nb);
 	if (flags.width < len)
 		return (len);
 	return (printed);
@@ -85,7 +85,7 @@ static int				print_prewidth(t_flags flags, unsigned long nb, int len)
 	while (pre-- > 0)
 		write(1, "0", 1);
 	if (!(flags.precision == 0 && nb == 0))
-		print_hexa_lower(nb);
+		print_hexa_upper(nb);
 	if (flags.dash == 1)
 	{
 		while (wid-- > 0)
@@ -94,7 +94,7 @@ static int				print_prewidth(t_flags flags, unsigned long nb, int len)
 	return (printed);
 }
 
-int						print_hexa(va_list arg, t_flags flags)
+int						p_uhex(va_list arg, t_flags flags)
 {
 	int		nb;
 	int		printed;
@@ -109,7 +109,7 @@ int						print_hexa(va_list arg, t_flags flags)
 		printed += print_prewidth(flags, nb, count_hexa(nb));
 	else
 	{
-		print_hexa_lower(nb);
+		print_hexa_upper(nb);
 		return (count_hexa(nb));
 	}
 	return (printed);
