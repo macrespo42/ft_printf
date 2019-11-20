@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:37:56 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/20 11:08:05 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 18:19:40 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,18 @@ static int				print_precision(t_flags flags, int nb)
 
 	len = len_num(nb);
 	to_print = nb > 0 ? flags.precision - len : flags.precision - (len - 1);
-	printed = len < flags.precision ? flags.precision + len - 1 : len;
+	if (nb == 0)
+		len = 0;
+	printed = len;
 	if (flags.precision == 0 && nb == 0)
 		return (0);
 	if (nb < 0)
 		write(1, "-", 1);
 	while (to_print-- > 0)
+	{
+		printed++;
 		write(1, "0", 1);
+	}
 	if (!(nb == 0))
 		putnbr(nb);
 	return (printed);

@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:45:20 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 11:46:47 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 18:30:35 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void				putunbr(unsigned int n)
 	char	tmp;
 
 	if (n >= 10)
-		putnbr(n / 10);
+		putunbr(n / 10);
 	tmp = '0' + n % 10;
 	write(1, &tmp, 1);
 }

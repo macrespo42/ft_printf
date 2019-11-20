@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:19:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/20 11:40:42 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:54:52 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ static int				print_precision(t_flags flags, unsigned long nb)
 	int		printed;
 	int		to_print;
 
-	len = count_hexa(nb);
-	to_print = flags.precision - len;
+	len = nb == 0 ? 2 : count_hexa(nb);
+	to_print = nb == 0 ? flags.precision - 1 : flags.precision - len;
 	printed = len < flags.precision ? flags.precision : len;
+	printed += nb == 0 ? 2 : 0;
 	if (flags.precision == 0 && nb == 0)
 	{
 		write(1, "0x", 2);
 		return (2);
 	}
+	if (nb == 0)
+		write(1, "0x", 2);
 	while (to_print-- > 0)
 		write(1, "0", 1);
 	print_address(nb);
@@ -75,15 +78,15 @@ static int				print_prewidth(t_flags flags, unsigned long nb, int len)
 	int		pre;
 	int		wid;
 
-	if (flags.precision == 0 && nb == 0)
+	if ((flags.precision == 0 && nb == 0))
 		len = 2;
 	pre = flags.precision - len > 0 ? flags.precision - len : 0;
+	pre += flags.precision > len ? 2 : 0;
 	wid = flags.width - (len + pre) > 0 ? flags.width - (len + pre) : 0;
 	printed = pre + wid + len;
 	while (flags.dash == 0 && wid-- > 0)
 		write(1, " ", 1);
-	if (flags.precision == 0 && nb == 0)
-		write(1, "0x", 2);
+	write(1, "0x", 2);
 	while (pre-- > 0)
 		write(1, "0", 1);
 	if (!(flags.precision == 0 && nb == 0))
