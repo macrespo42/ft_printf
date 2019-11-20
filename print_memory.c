@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 11:19:07 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 19:10:02 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:40:42 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ static int				print_prewidth(t_flags flags, unsigned long nb, int len)
 	int		pre;
 	int		wid;
 
+	if (flags.precision == 0 && nb == 0)
+		len = 2;
 	pre = flags.precision - len > 0 ? flags.precision - len : 0;
 	wid = flags.width - (len + pre) > 0 ? flags.width - (len + pre) : 0;
 	printed = pre + wid + len;
-	if (flags.precision == 0 && nb == 0)
-		wid += 1;
 	while (flags.dash == 0 && wid-- > 0)
 		write(1, " ", 1);
 	if (flags.precision == 0 && nb == 0)
