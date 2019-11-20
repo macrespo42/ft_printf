@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c.c                                          :+:      :+:    :+:   */
+/*   print_percent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/11 18:14:32 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/20 10:41:51 by macrespo         ###   ########.fr       */
+/*   Created: 2019/11/20 10:44:28 by macrespo          #+#    #+#             */
+/*   Updated: 2019/11/20 10:45:09 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ static int		width_flags(t_flags flags, char c)
 	return (i - 1);
 }
 
-int				print_c(va_list arg, t_flags flags)
+int				print_percent(t_flags flags)
 {
-	char	c;
 	char	zero;
 	int		i;
 
@@ -34,8 +33,7 @@ int				print_c(va_list arg, t_flags flags)
 	i = 0;
 	if (flags.width > 0 && flags.dash == 0)
 		i += width_flags(flags, zero);
-	c = va_arg(arg, int);
-	write(1, &c, 1);
+	write(1, "%", 1);
 	if (flags.dash > 0)
 		i += width_flags(flags, zero);
 	return (1 + i);

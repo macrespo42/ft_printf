@@ -22,7 +22,8 @@ SRC = ft_printf.c \
 	putunbr.c \
 	putnbr.c \
 	print_memory.c \
-	print_address.c
+	print_address.c \
+	print_percent.c
 
 OBJ = $(SRC:.c=.o)
 

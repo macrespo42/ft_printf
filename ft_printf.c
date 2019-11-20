@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 10:12:05 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/19 17:14:47 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:48:42 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int		convert_flags(int *i, va_list args, char *s)
 	flags = active_flags(s, *i, args);
 	while (!(is_convert_flag(s[*i])) && s[*i])
 		*i += 1;
+	if (s[*i] == '%')
+		printed += print_percent(flags);
 	if (s[*i] == 'c')
 		printed += print_c(args, flags);
 	if (s[*i] == 's')
