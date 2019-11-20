@@ -6,7 +6,7 @@
 /*   By: macrespo <macrespo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:10:09 by macrespo          #+#    #+#             */
-/*   Updated: 2019/11/20 10:30:15 by macrespo         ###   ########.fr       */
+/*   Updated: 2019/11/20 11:04:36 by macrespo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ int			i_atoi(const char *str, int *pos, va_list args, t_flags *flags)
 			flags->dash = 1;
 		}
 	}
-	while (str[*pos] >= 48 && str[*pos] <= 57)
+	else
 	{
-		res = res * 10 + str[*pos] - '0';
-		(*pos)++;
+		while (str[*pos] >= 48 && str[*pos] <= 57)
+		{
+			res = res * 10 + str[*pos] - '0';
+			(*pos)++;
+		}
+		(*pos)--;
 	}
-	(*pos)--;
 	return (res);
 }
