@@ -2,7 +2,6 @@
 main.c
 *.o
 a.out
-*.pdf
 printf_tester
 pft_2019/
 ft_printf_unit_test/
